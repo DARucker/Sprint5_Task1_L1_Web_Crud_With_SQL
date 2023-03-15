@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+<header th:replace="plantilla/template :: header"></header>
+<div class="container">
+
+    <div class="card" bg-light>
+      <div class="card-header bg-dark text-white" th:text="${title}"></div>
+      <div class="card-body">
+
+
+  <form th:object="${branch}">
+    <div class="form-group row">
+      <label class="col-md-2" for="Name">Branch name</label>
+      <input type="text" th:field="*{name}" class="form-control form-control-sm col-md-6" id="name" placeholder="Branch name">
+      <small></small>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2" for="country">Country</label>
+      <input type="text" th:field="*{country}"class="form-control form-control-sm col-md-6" id="country" placeholder="Country">
+      <small></small>
+    </div>
+
+    <div class="card-footer bg-dark">
+      <input type="submit" class="btn btn-primary btn-sm" th:value="save"/>
+    </div>
+  </form>
+
+    </div>
+</div>
+
+</div>
+
+<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

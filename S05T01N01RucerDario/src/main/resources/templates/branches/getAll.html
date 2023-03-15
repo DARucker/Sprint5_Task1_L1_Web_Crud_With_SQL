@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head th:replace="plantilla/template :: head">
+
+</head>
+<body>
+<header th:replace="plantilla/template :: header"></header>
+<div class="container">
+  <h1 th:text="${title}"></h1>
+</div>
+
+<div class="container">
+
+  <a class="btn btn-primary btn-sm" th:href="@{/branch/add}"
+      th:text="'New branch'" title="Create new branch">
+
+  </a>
+  <table class="table">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Country</th>
+      <th scope="col">Name</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="br:${branchList}">
+      <th scope="row" th:text="${br.id}"></th>
+      <td th:text="${br.country}"></td>
+      <td th:text="${br.name}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>
