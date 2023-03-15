@@ -11,7 +11,7 @@
 
 <div class="container">
 
-  <a class="btn btn-primary btn-sm" th:href="@{/branch/add}"
+  <a class="btn btn-primary btn-sm" th:href="@{/branch/create}"
       th:text="'New branch'" title="Create new branch">
 
   </a>
@@ -21,7 +21,8 @@
       <th scope="col">Id</th>
       <th scope="col">Country</th>
       <th scope="col">Name</th>
-
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -29,6 +30,24 @@
       <th scope="row" th:text="${br.id}"></th>
       <td th:text="${br.country}"></td>
       <td th:text="${br.name}"></td>
+      <td>
+        <a class="btn btn-success btn-sm" th:href="@{/branch/edit/} + ${br.id}"
+           th:text="'Edit'" title="Edit branch">
+        </a>
+      </td>
+      <td>
+        <a class="btn btn-danger btn-sm" th:href="@{/branch/delete/} + ${br.id}"
+           th:text="'Delete'" title="Delete branch"
+           onclick="return confirm('Confirm that you want to delete the branch');">
+        </a>
+      </td>
+
+
+
+
+
+
+
     </tr>
     </tbody>
   </table>

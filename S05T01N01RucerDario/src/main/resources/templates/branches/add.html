@@ -12,8 +12,9 @@
       <div class="card-body">
 
 
-  <form th:object="${branch}">
+  <form th:action="@{/branch/add}" th:object="${branch}" method="post">
     <div class="form-group row">
+      <input type="hidden" th:field="*{id}">
       <label class="col-md-2" for="Name">Branch name</label>
       <input type="text" th:field="*{name}" class="form-control form-control-sm col-md-6" id="name" placeholder="Branch name">
       <small></small>
