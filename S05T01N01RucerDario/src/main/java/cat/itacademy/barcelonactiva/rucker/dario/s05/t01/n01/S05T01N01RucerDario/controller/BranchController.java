@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,15 +32,16 @@ public class BranchController {
     }
 
     @PostMapping ("/add")
-    public String addBranch(@Valid @ModelAttribute Branch branch, BindingResult result, Model model){
+    public String addBranch(@Valid @ModelAttribute Branch branch, BindingResult result, Model model, RedirectAttributes attribute){
        if(result.hasErrors()){
            model.addAttribute("title", "CREATE NEW BRANCH");
            model.addAttribute("branch", branch);
            LOG.error("please check the data");
-           return "/branches/create";
+           return "/branches/add";
        }
         LOG.info("Branch to insert into database: " + branch);
         branchService.save(branch);
+        attribute.addFlashAttribute("success", "Branch created succefully");
         return "redirect:/branch/getAll";
     }
 
@@ -55,8 +57,18 @@ public class BranchController {
     }
 
     @GetMapping ("/edit/{id}")
-    public String editBranch(@PathVariable ("id") int branchId, Model model){
-        Branch branch = branchService.findById(branchId);
+    public String editBranch(@PathVariable ("id") int branchId, Model model, RedirectAttributes attribute){
+
+        Branch branch = null;
+        if(branchId > 0 ){
+            branch = branchService.findById(branchId);
+            if(branch == null){
+                attribute.addFlashAttribute("error", "the branch does not exist");
+                LOG.info("Branch does not exist ");
+                return "redirect:/branch/getAll";
+            }
+        }
+
         LOG.info("Branch to edit " + branch);
         model.addAttribute("title", "EDIT BRANCH");
         model.addAttribute("branch", branch);
@@ -64,8 +76,18 @@ public class BranchController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable ("id") int branchId){
-        Branch branch = branchService.findById(branchId);
+    public String delete(@PathVariable ("id") int branchId, RedirectAttributes attribute){
+
+        Branch branch = null;
+        if(branchId > 0 ){
+            branch = branchService.findById(branchId);
+            if(branch == null){
+                attribute.addFlashAttribute("error", "the branch does not exist");
+                LOG.info("Branch does not exist ");
+                return "redirect:/branch/getAll";
+            }
+        }
+        attribute.addFlashAttribute("warning", "the branch was deleted");
         LOG.info("Branch to delete " + branch);
         branchService.delete(branch);
         return "redirect:/branch/getAll";

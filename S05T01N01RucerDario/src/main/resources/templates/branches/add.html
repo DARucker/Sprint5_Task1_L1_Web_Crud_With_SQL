@@ -16,14 +16,16 @@
     <div class="form-group row">
       <input type="hidden" th:field="*{id}">
       <label class="col-md-2" for="Name">Branch name</label>
-      <input type="text" th:field="*{name}" class="form-control form-control-sm col-md-6" id="name" placeholder="Branch name">
-      <small></small>
+      <input type="text" th:field="*{name}" class="form-control form-control-sm col-md-12" id="name" placeholder="Branch name">
+      <small class="form-text text-danger" th:if="${#fields.hasErrors('name')}"
+        th:errors="*{name}"></small>
     </div>
 
     <div class="form-group row">
       <label class="col-md-2" for="country">Country</label>
-      <input type="text" th:field="*{country}"class="form-control form-control-sm col-md-6" id="country" placeholder="Country">
-      <small></small>
+      <input type="text" th:field="*{country}"class="form-control form-control-sm col-md-12" id="country" placeholder="Country">
+      <small class="form-text text-danger" th:if="${#fields.hasErrors('country')}"
+             th:errors="*{country}"></small>
     </div>
 
     <div class="card-footer bg-dark">
