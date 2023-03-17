@@ -21,15 +21,17 @@
       <th scope="col">Id</th>
       <th scope="col">Country</th>
       <th scope="col">Name</th>
+      <th scope="col">European Union</th>
       <th scope="col">Edit</th>
       <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="br:${branchList}">
+    <tr th:each="br:${branchdtoList}">
       <th scope="row" th:text="${br.id}"></th>
       <td th:text="${br.country}"></td>
       <td th:text="${br.name}"></td>
+      <td th:text="${br.branchType}"></td>
       <td>
         <a class="btn btn-success btn-sm" th:href="@{/branch/edit/} + ${br.id}"
            th:text="'Edit'" title="Edit branch">

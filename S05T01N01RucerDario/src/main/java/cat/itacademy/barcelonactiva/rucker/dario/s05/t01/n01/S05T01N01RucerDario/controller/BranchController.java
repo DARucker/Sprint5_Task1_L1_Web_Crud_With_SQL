@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.controller;
 
 import cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.domain.Branch;
+import cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.dto.Branchdto;
 import cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.service.IBranchService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -49,47 +50,47 @@ public class BranchController {
     @GetMapping("/getAll")
     public String getAllBranches(Model model){
 
-        List<Branch> branchList = branchService.listAll(); // cambiar a DTO
-        LOG.info("List requested by client" + branchList);
+        List<Branchdto> branchdtoList = branchService.listAll(); // cambiar a DTO
+        LOG.info("List requested by client" + branchdtoList);
         model.addAttribute("title", "Branch list");
-        model.addAttribute("branchList", branchList);
+        model.addAttribute("branchdtoList", branchdtoList);
         return "/branches/getAll";
     }
 
     @GetMapping ("/edit/{id}")
     public String editBranch(@PathVariable ("id") int branchId, Model model, RedirectAttributes attribute){
 
-        Branch branch = null;
+        Branchdto branchdto = null;
         if(branchId > 0 ){
-            branch = branchService.findById(branchId);
-            if(branch == null){
+            branchdto = branchService.findById(branchId);
+            if(branchdto == null){
                 attribute.addFlashAttribute("error", "the branch does not exist");
                 LOG.info("Branch does not exist ");
                 return "redirect:/branch/getAll";
             }
         }
 
-        LOG.info("Branch to edit " + branch);
+        LOG.info("Branch to edit " + branchdto);
         model.addAttribute("title", "EDIT BRANCH");
-        model.addAttribute("branch", branch);
+        model.addAttribute("branch", branchdto);
         return "/branches/add";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable ("id") int branchId, RedirectAttributes attribute){
 
-        Branch branch = null;
+        Branchdto branchdto = null;
         if(branchId > 0 ){
-            branch = branchService.findById(branchId);
-            if(branch == null){
+            branchdto = branchService.findById(branchId);
+            if(branchdto == null){
                 attribute.addFlashAttribute("error", "the branch does not exist");
                 LOG.info("Branch does not exist ");
                 return "redirect:/branch/getAll";
             }
         }
         attribute.addFlashAttribute("warning", "the branch was deleted");
-        LOG.info("Branch to delete " + branch);
-        branchService.delete(branch);
+        LOG.info("Branch to delete " + branchdto);
+        branchService.delete(branchdto);
         return "redirect:/branch/getAll";
     }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BranchServiceImpl implements IBranchService{
@@ -15,10 +16,13 @@ public class BranchServiceImpl implements IBranchService{
     @Autowired
     private BranchRepository branchRepository;
 
-
     @Override
-    public List<Branch> listAll() {
-        return (List<Branch>) branchRepository.findAll();
+    public List<Branchdto> listAll() {
+
+        return branchRepository.findAll().stream()
+                //.map(this::entityToDto)
+                .map(x -> entityToDto(x))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -32,13 +36,15 @@ public class BranchServiceImpl implements IBranchService{
     }
 
     @Override
-    public Branch findById(int id) {
-        return branchRepository.findById(id).orElse(null);
+    public Branchdto findById(int id) {
+
+        return entityToDto(branchRepository.findById(id).orElse(null));
     }
 
     @Override
-    public void delete(Branch branch) {
-        branchRepository.delete(branch);
+    public void delete(Branchdto branchto) {
+       branchRepository.delete(dtoToEntity(branchto));
+
     }
 
     public Branchdto entityToDto(Branch branch){
@@ -57,5 +63,11 @@ public class BranchServiceImpl implements IBranchService{
         }
         return branchdto;
     }
-
+    public Branch dtoToEntity (Branchdto branchdto){
+        Branch branch = new Branch();
+        branch.setId(branchdto.getId());
+        branch.setName(branchdto.getName());
+        branch.setCountry(branchdto.getCountry());
+        return branch;
+    }
 }
