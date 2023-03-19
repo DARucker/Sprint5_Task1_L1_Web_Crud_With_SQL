@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDari
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,12 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor @NoArgsConstructor @Builder
 public class Branchdto {
 
-    private int Id;
+    private int id;
     private String name;
-    private String Country;
+    private String country;
 
     private String branchType;
 

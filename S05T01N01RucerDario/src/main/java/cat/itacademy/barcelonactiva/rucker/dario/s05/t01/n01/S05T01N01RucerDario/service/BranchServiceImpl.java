@@ -16,12 +16,14 @@ public class BranchServiceImpl implements IBranchService{
     @Autowired
     private BranchRepository branchRepository;
 
+    public BranchServiceImpl(BranchRepository branchRepository) {
+    }
+
     @Override
     public List<Branchdto> listAll() {
 
         return branchRepository.findAll().stream()
-                //.map(this::entityToDto)
-                .map(x -> entityToDto(x))
+                .map(x -> entityToDto(x)) // Another option using reference method: .map(this::entityToDto)
                 .collect(Collectors.toList());
     }
 
