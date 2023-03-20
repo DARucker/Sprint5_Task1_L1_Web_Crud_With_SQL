@@ -33,29 +33,21 @@ public class BranchServiceMockTest {
         MockitoAnnotations.openMocks(this);
         branchService = new BranchServiceImpl(branchRepository);
 
-        Branchdto branchdto01 = Branchdto.builder()
-                .id(1)
-                .name("Ar1")
-                .country("Argentina")
-                .branchType("no EU")
-                .build();
-
-        Mockito.when(branchRepository.findById(1))
-                .thenReturn(Optional.of(branch01));
-
-        Mockito.when(branchRepository.save(branchdto01))
-                .thenReturn(branchdto01);
-
     }
     @Test
     public void whenFindById_ThenReturnBrach(){
-        Branch found = branchService.findById(1);
-        Assertions.assertThat(found.getName()).isEqualTo("Ar1");
+        // Given
+        Branch branch01 = Branch.builder()
+                .id(1)
+                .name("Ar2")
+                .country("Argentina")
+                .build();
+        // When
+        Mockito.when(branchRepository.findById(1)).thenReturn(Optional.of(branch01));
+        Branchdto found = branchService.findById(1);
+        // Then
+        Branch expected = new Branch(1, "Ar3", "Argentina");
+        Assertions.assertThat(found.getName()).isEqualTo(expected.getName());
     }
-    @Test
-    public void WhenUpdateCantKilos_ThenReturnNewCantKilos(){
-        Fruit fruta = new Fruit(1, "apple", 20);
-        Fruit newCantKilos = iFruitService.updateFruit(fruta);
-        Assertions.assertThat(newCantKilos.getCantidadkilos()).isEqualTo(20);
-    }
+
 }

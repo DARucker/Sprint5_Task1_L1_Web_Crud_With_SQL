@@ -3,6 +3,7 @@ package cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDari
 import cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.domain.Branch;
 import cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.dto.Branchdto;
 import cat.itacademy.barcelonactiva.rucker.dario.s05.t01.n01.S05T01N01RucerDario.repository.BranchRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class BranchServiceImpl implements IBranchService{
 
@@ -17,6 +19,7 @@ public class BranchServiceImpl implements IBranchService{
     private BranchRepository branchRepository;
 
     public BranchServiceImpl(BranchRepository branchRepository) {
+        this.branchRepository= branchRepository;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class BranchServiceImpl implements IBranchService{
 
     @Override
     public Branch update(Branch branch) {
-        return null;
+        return branch;
     }
 
     @Override
