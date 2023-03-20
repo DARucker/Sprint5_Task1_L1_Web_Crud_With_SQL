@@ -25,29 +25,36 @@ public class BranchServiceMockTest {
 
     private IBranchService branchService;
 
-    public BranchServiceMockTest() {
-    }
+    //public BranchServiceMockTest() {
+    //}
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.openMocks(this);
         branchService = new BranchServiceImpl(branchRepository);
 
-    }
-    @Test
-    public void whenFindById_ThenReturnBrach(){
-        // Given
-        Branch branch01 = Branch.builder()
-                .id(1)
-                .name("Ar2")
-                .country("Argentina")
-                .build();
-        // When
-        Mockito.when(branchRepository.findById(1)).thenReturn(Optional.of(branch01));
-        Branchdto found = branchService.findById(1);
-        // Then
-        Branch expected = new Branch(1, "Ar3", "Argentina");
-        Assertions.assertThat(found.getName()).isEqualTo(expected.getName());
-    }
+            // Given
+            Branch branch01 = Branch.builder()
+                    .id(1)
+                    .name("Ar2")
+                    .country("Argentina")
+                    .build();
+            // When
+            Mockito.when(branchRepository.findById(1)).thenReturn(Optional.of(branch01));
+        }
 
-}
+        @Test
+        public void whenFindById_ThenReturnBrach () {
+
+            Branchdto found = branchService.findById(1);
+            // Then
+            Assertions.assertThat(found.getName()).isEqualTo("Ar2");
+
+        }
+
+        @Test
+        public void WhenFindById_ThenTestEntityToDtoMethod() {
+            Branchdto found = branchService.findById(1);
+            Assertions.assertThat(found.getBranchType()).isEqualTo("no EU");
+        }
+    }
